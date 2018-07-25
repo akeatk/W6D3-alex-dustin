@@ -1,18 +1,15 @@
-<% if current_user.follows?(user) %>
+<%
+  user_id = user.id 
+  if current_user.follows?(user)
+    initial_follow_state = true
+  else
+    initial_follow_state = false
+  end
+%>
   <form action="<%= user_follow_url(user) %>" method="post">
     <input
         type="hidden"
         name="authenticity_token"
         value="<%= form_authenticity_token %>">
-    <input type="hidden" name="_method" value="delete">
-    <input type="submit" value="Unfollow">
+    <button class="follow-toggle" data-user-id="<%= user_id %>" data-initial-follow-state="<%=initial_follow_state%>" type="submit">
   </form>
-<% else %>
-  <form action="<%= user_follow_url(user) %>" method="post">
-    <input
-        type="hidden"
-        name="authenticity_token"
-        value="<%= form_authenticity_token %>">
-    <input type="submit" value="Follow">
-  </form>
-<% end %>
