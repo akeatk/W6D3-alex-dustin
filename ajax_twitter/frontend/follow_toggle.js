@@ -21,16 +21,18 @@ class FollowToggle {
   changeState() {
     this.followState = !this.followState;
     this.disabled = false;
+    this.$el.removeProp('disabled');
     this.render();
   }
   handleClick() {
     this.$el.on('click', (e) => {
       this.disabled = true;
+      this.$el.prop('disabled', 'disabled');
       e.preventDefault();
       if(this.followState) {
-        APIUtil.unfollowUser(this.userId).then(changeState);
+        APIUtil.unfollowUser(this.userId).then(()=>this.changeState());
       } else {
-        APIUtil.followUser(this.userId).then(changeState);
+        APIUtil.followUser(this.userId).then(()=>this.changeState());
       }
     });
   }

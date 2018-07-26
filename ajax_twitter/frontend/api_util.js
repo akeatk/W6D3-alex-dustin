@@ -13,6 +13,25 @@ const APIUtil = {
       url: `/users/${id}/follow`,
       dataType: 'json'
     });
+  },
+  
+  searchUsers: (queryVal, success) => {
+    const prom = $.ajax({
+      type: 'GET',
+      url: `/users/search`,
+      dataType: 'json',
+      data: {query: queryVal},
+    });
+    prom.then(success);
+  },
+  
+  createTweet: (data) => {
+    return $.ajax({
+      type: 'POST',
+      url: '/tweets',
+      data: data,
+      dataType: 'json'
+    });
   }
 };
 
